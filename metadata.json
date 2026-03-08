@@ -1,0 +1,5 @@
+{
+  "name": "LendSphere",
+  "description": "A full-stack Peer-to-Peer (P2P) Lending Web Application connecting borrowers with individual lenders.",
+  "requestFramePermissions": []
+}
