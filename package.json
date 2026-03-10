@@ -12,7 +12,8 @@
     "seed": "tsx server/db/seed.ts",
     "test:e2e": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:show-trace": "playwright show-trace"
+    "test:show-trace": "playwright show-trace",
+    "test:bdd": "tsx node_modules/@cucumber/cucumber/bin/cucumber-js"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
@@ -37,6 +38,7 @@
     "vite": "^6.2.0"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^12.7.0",
     "@playwright/test": "^1.58.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.13",
@@ -46,6 +48,7 @@
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
     "tailwindcss": "^4.1.14",
+    "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"

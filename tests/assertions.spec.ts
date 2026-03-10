@@ -1,30 +1,46 @@
+/**
+ * @file assertions.spec.ts
+ * @description Demonstrates the most common Playwright assertion types
+ * against the Lendsphere login page, including soft assertions.
+ * Uses the LoginPage Page Object Model for reliable element targeting.
+ */
 import { test, expect } from '@playwright/test';
 import { LoginPage } from './pages/LoginPage';
 
+/**
+ * @description Suite showcasing different assertion methods available in Playwright.
+ * Tagged with @smoke for inclusion in quick validation runs.
+ */
 test.describe('Demonstrating Assertions @smoke', () => {
+
+  /**
+   * @description Navigates to the login page and exercises five assertion categories:
+   *   1. toHaveURL   – validates the current page URL matches a pattern
+   *   2. toBeVisible – confirms an element is rendered and visible in the DOM
+   *   3. toHaveText  – checks the exact text content of an element
+   *   4. toHaveCount – asserts the total number of elements matching a locator
+   *   5. expect.soft – records a failure without stopping the remaining assertions
+   */
   test('Various assertions on the Login Page', async ({ page }) => {
-    // Using our previously created Page Object Model
     const loginPage = new LoginPage(page);
     await loginPage.goto();
 
-    // 1. toHaveURL - Validates the page URL matches a regular expression or string
+    /** 1. toHaveURL – validates the page URL matches a regular expression */
     await expect(page).toHaveURL(/.*login/);
 
-    // 2. toBeVisible - Checks if an element is visible in the DOM and not hidden
+    /** 2. toBeVisible – checks if an element is visible in the DOM and not hidden */
     await expect(loginPage.emailInput).toBeVisible();
     await expect(loginPage.passwordInput).toBeVisible();
 
-    // 3. toHaveText - Checks if an element contains the expected text
+    /** 3. toHaveText – checks if an element contains the expected text */
     const heading = page.locator('h2');
     await expect(heading).toHaveText('Sign in to your account');
 
-    // 4. toHaveCount - Asserts the number of elements matching the locator
-    // There are 3 inputs on the login page: email, password, and the "remember me" checkbox
+    /** 4. toHaveCount – asserts the number of elements matching the locator (email, password, remember-me) */
     const inputs = page.locator('input');
     await expect(inputs).toHaveCount(3);
 
-    // 5. Soft Assertions - A failing soft assertion does NOT stop test execution.
-    // The test will continue running the next lines, but will still be marked as "failed" at the end.
+    /** 5. Soft Assertions – a failing soft assertion does NOT stop test execution */
     await expect.soft(loginPage.submitButton).toHaveText('Sign in');
     await expect.soft(loginPage.submitButton).toBeEnabled();
   });
